@@ -1,1 +1,6 @@
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.6.0")
+// The Play plugin
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.1")
+
+// Load testing tool:
+// http://gatling.io/docs/2.2.2/extensions/sbt_plugin.html
+addSbtPlugin("io.gatling" % "gatling-sbt" % "3.0.0")
