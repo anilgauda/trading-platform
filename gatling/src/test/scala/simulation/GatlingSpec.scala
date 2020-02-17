@@ -1,7 +1,10 @@
 package simulation
 
 import io.gatling.core.Predef._
+import io.gatling.core.structure.{ChainBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
+import io.gatling.http.protocol.HttpProtocolBuilder
+
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -11,7 +14,7 @@ class GatlingSpec extends Simulation {
 
   // change this to another machine, make sure you have Play running in producion mode
   // i.e. sbt stage / sbt dist and running the script
-  val httpConf = http.baseUrl("http://localhost:9000")
+  val httpConf: HttpProtocolBuilder = http.baseUrl("http://localhost:9000/v1/posts")
 
   val indexReq = repeat(500) {
     exec(

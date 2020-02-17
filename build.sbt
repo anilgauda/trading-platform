@@ -1,28 +1,27 @@
+import sbt.Keys._
+import play.sbt.PlaySettings
+
 lazy val root = (project in file("."))
-  .enablePlugins(PlayJava)
+  .enablePlugins(PlayService, PlayLayoutPlugin, Common)
   .settings(
-    name := "play-java-rest-api-example",
-    version := "2.8.x",
+    name := "play-scala-rest-api-example",
     scalaVersion := "2.13.1",
     libraryDependencies ++= Seq(
       guice,
-      javaJpa,
-      "com.h2database" % "h2" % "1.4.199",
-      "org.hibernate" % "hibernate-core" % "5.4.9.Final",
-      "io.dropwizard.metrics" % "metrics-core" % "4.1.1",
-      "com.palominolabs.http" % "url-builder" % "1.1.0",
-      "net.jodah" % "failsafe" % "2.3.1",
+      "org.joda" % "joda-convert" % "2.2.1",
+      "net.logstash.logback" % "logstash-logback-encoder" % "6.2",
+      "io.lemonlabs" %% "scala-uri" % "1.5.1",
+      "net.codingwell" %% "scala-guice" % "4.2.6",
+      "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
     ),
-    PlayKeys.externalizeResources := false,
-    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v")),
-    javacOptions ++= Seq(
-      "-Xlint:unchecked",
-      "-Xlint:deprecation",
-      "-Werror"
+    scalacOptions ++= Seq(
+      "-feature",
+      "-deprecation",
+      "-Xfatal-warnings"
     )
   )
 
-val gatlingVersion = "3.3.1"
+lazy val gatlingVersion = "3.3.1"
 lazy val gatling = (project in file("gatling"))
   .enablePlugins(GatlingPlugin)
   .settings(
@@ -31,4 +30,13 @@ lazy val gatling = (project in file("gatling"))
       "io.gatling.highcharts" % "gatling-charts-highcharts" % gatlingVersion % Test,
       "io.gatling" % "gatling-test-framework" % gatlingVersion % Test
     )
+  )
+
+// Documentation for this project:
+//    sbt "project docs" "~ paradox"
+//    open docs/target/paradox/site/index.html
+lazy val docs = (project in file("docs")).enablePlugins(ParadoxPlugin).
+  settings(
+    scalaVersion := "2.13.1",
+    paradoxProperties += ("download_url" -> "https://example.lightbend.com/v1/download/play-samples-play-scala-rest-api-example")
   )
