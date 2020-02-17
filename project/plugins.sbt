@@ -10,3 +10,5 @@ addSbtPlugin("io.gatling" % "gatling-sbt" % "3.0.0")
 
 // Scala formatting: "sbt scalafmt"
 addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.15")
+
+addSbtPlugin("com.heroku" % "sbt-heroku" % "2.1.4")

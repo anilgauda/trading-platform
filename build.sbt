@@ -1,6 +1,6 @@
 import sbt.Keys._
 import play.sbt.PlaySettings
-
+herokuAppName in Compile := "fierce-refuge-44375"
 lazy val root = (project in file("."))
   .enablePlugins(PlayService, PlayLayoutPlugin, Common)
   .settings(
