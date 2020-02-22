@@ -4,7 +4,7 @@ herokuAppName in Compile := "fierce-refuge-44375"
 lazy val root = (project in file("."))
   .enablePlugins(PlayService, PlayLayoutPlugin, Common)
   .settings(
-    name := "play-scala-rest-api-example",
+    name := "trading-platform",
     scalaVersion := "2.13.1",
     libraryDependencies ++= Seq(
       guice,

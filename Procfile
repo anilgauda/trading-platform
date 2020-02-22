@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/play-scala-rest-api-example -Dhttp.port=${PORT}
+web: target/universal/stage/bin/trading-platform -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=true
