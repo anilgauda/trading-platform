@@ -40,5 +40,12 @@ lazy val docs = (project in file("docs")).enablePlugins(ParadoxPlugin).
     scalaVersion := "2.13.1",
     paradoxProperties += ("download_url" -> "https://example.lightbend.com/v1/download/play-samples-play-scala-rest-api-example")
   )
-// https://mvnrepository.com/artifact/com.yahoofinance-api/YahooFinanceAPI
-libraryDependencies += "com.yahoofinance-api" % "YahooFinanceAPI" % "3.15.0"
+
+
+libraryDependencies ++= Seq(
+  // https://mvnrepository.com/artifact/com.yahoofinance-api/YahooFinanceAPI
+  "com.yahoofinance-api" % "YahooFinanceAPI" % "3.15.0",
+
+  // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
+  "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.727"
+)
