@@ -1,5 +1,5 @@
 package common.trade
 
-case class Share(name: String,tickerCode: String,price: BigDecimal =BigDecimal(0),avgPrice50: BigDecimal=BigDecimal(0)
-                 ,avgPrice200: BigDecimal=BigDecimal(0), ebitda:BigDecimal=BigDecimal(0),oneYearTargetPrice: BigDecimal=BigDecimal(0)){
-}
+case class Share(name: String,tickerCode: String,price: String,avgPrice50Percent: String
+                   ,avgPrice200Percent: String, askValue:String,bid: String, prevClose: String,
+                 eps: String,pe: String, annDate: String,priceHistory: Any,dividendHistory: Any,currency: String )

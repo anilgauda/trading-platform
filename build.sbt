@@ -47,5 +47,8 @@ libraryDependencies ++= Seq(
   "com.yahoofinance-api" % "YahooFinanceAPI" % "3.15.0",
 
   // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
-  "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.727"
+  "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.727",
+  // https://mvnrepository.com/artifact/com.google.code.gson/gson
+  "com.google.code.gson" % "gson" % "2.8.5"
+
 )

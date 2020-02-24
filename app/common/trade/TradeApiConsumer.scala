@@ -2,22 +2,34 @@ package common.trade
 
 import yahoofinance.{Stock, YahooFinance}
 
-import scala.collection.mutable
-
 class TradeApiConsumer {
   def getStock(ticker: String):Share={
-    println(s"Ticker value $ticker")
     val stock: Stock=YahooFinance.get(ticker)
-    val ebitda :BigDecimal={ if(stock.getStats.getEBITDA==null) BigDecimal(0) else stock.getStats.getEBITDA}
-    val getOneYearTargetPrice :BigDecimal={ if(stock.getStats.getOneYearTargetPrice==null) BigDecimal(0) else stock.getStats.getOneYearTargetPrice}
     val share: Share=Share(stock.getName,
       stock.getSymbol,
-      stock.getQuote.getPrice,
-      stock.getQuote.getChangeFromAvg50,
-      stock.getQuote.getChangeFromAvg200,
-      ebitda,
-      getOneYearTargetPrice)
-    return share
+      stock.getQuote.getPrice.toString,
+      stock.getQuote.getChangeFromAvg50InPercent.toString,
+      stock.getQuote.getChangeFromAvg200InPercent.toString,
+      stock.getQuote.getAsk.toString,
+      stock.getQuote.getBid.toString,
+      stock.getQuote.getPreviousClose.toString,
+      stock.getStats.getEps match {
+         case null => "-"
+         case _ => stock.getStats.getEps.toString
+       },
+      stock.getStats.getPe match {
+        case null => "-"
+        case _ =>stock.getStats.getPe.toString
+      },
+      stock.getStats.getEarningsAnnouncement match {
+        case null => "-"
+        case _ => stock.getStats.getEarningsAnnouncement.getTime.toString
+      },
+      stock.getHistory,
+      stock.getDividendHistory,
+      stock.getCurrency
+    )
+     share
   }
     }
 

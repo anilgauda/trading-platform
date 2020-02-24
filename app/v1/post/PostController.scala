@@ -1,13 +1,15 @@
 package v1.post
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import common.trade.{Share, TradeApiConsumer}
 import javax.inject.Inject
-
 import play.api.Logger
 import play.api.data.Form
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.parsing.json.JSONObject
 
 case class PostFormInput(title: String, body: String)
 
@@ -33,9 +35,14 @@ class PostController @Inject()(cc: PostControllerComponents)(
 
   def index: Action[AnyContent] = PostAction.async { implicit request =>
     logger.trace("index: ")
+    val tradeApiConsumer=new TradeApiConsumer
+
+    val details=tradeApiConsumer.getStock("INTC")
+    println(details.toString())
+
     postResourceHandler.find.map { posts =>
-      Ok(Json.toJson(posts))
-    }
+    Ok(Json.toJson(posts))
+  }
   }
 
   def process: Action[AnyContent] = PostAction.async { implicit request =>
@@ -65,4 +72,7 @@ class PostController @Inject()(cc: PostControllerComponents)(
 
     form.bindFromRequest().fold(failure, success)
   }
+
+
+
 }
