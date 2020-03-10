@@ -1,3 +1,0 @@
-->         /v1/posts               v1.post.PostRouter
-->         /trade                  common.trade.TradeRouter
-->         /v1/stock               v1.stock.StockRouter
