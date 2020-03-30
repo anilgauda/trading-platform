@@ -30,3 +30,10 @@ out/
 
 ### VS Code ###
 .vscode/
+/docs/
+/gatling/
+/logs/
+/target
+/project/target/
+/project/project/target
+/lombok.config
