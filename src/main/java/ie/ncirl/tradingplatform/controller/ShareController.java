@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import ie.ncirl.tradingplatform.service.SQSClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,9 @@ public class ShareController {
 	
 	@Autowired
 	ShareService shareService;
-
+	
+	@Autowired
+	private SQSClientService sqsClientService;
 	@GetMapping("/trade")
 	public SharesVo getStocks(@RequestParam(value="user") String user,@RequestParam(value="name")String name) throws IOException {
 		log.info("user and name from request {},{}",user,name);
@@ -60,5 +63,10 @@ public class ShareController {
 	public List<SharesTableVo> getAllStocks() throws IOException {
 		List<SharesTableVo> shares=shareService.getAllShares();
 		return shares;
+	}
+	
+	@GetMapping("/stock/buy")
+	public void buyStock() {
+		sqsClientService.send();
 	}
 }

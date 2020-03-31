@@ -39,7 +39,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.yahoofinance-api/YahooFinanceAPI
 	compile group: 'com.yahoofinance-api', name: 'YahooFinanceAPI', version: '3.15.0'
-	
+		// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
+	compile "com.amazonaws:aws-java-sdk-sqs:1.11.727"
+
     
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
