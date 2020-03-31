@@ -4,33 +4,30 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "stocks")
+public class Stock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
-    @NotNull
-    private String username;
+    private String symbol;
 
-    @NotNull
-    private String password;
+    private Double buyPrice;
 
-    private String displayName;
+    private Double sellPrice;
 
-    @OneToMany(mappedBy = "user")
-    private List<Account> accounts;
+    private Integer quantity;
+
+    @OneToOne
+    private Account account;
 }

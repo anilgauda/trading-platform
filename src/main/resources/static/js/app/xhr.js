@@ -40,7 +40,7 @@ const XHR = {
         const reqData = data || null;
         $.ajax
         ({
-            type: "GET",
+            type: "POST",
             url: url,
             dataType: 'json',
             headers: {
