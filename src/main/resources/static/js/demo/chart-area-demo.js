@@ -27,27 +27,42 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-// Area Chart Example
+function stockChart(label,data1,data2){
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: label,
     datasets: [{
-      label: "Earnings",
+      label: "Open",
       lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(78, 115, 223, 1)",
+      backgroundColor: "rgba(115, 223, 78, 0.05)",
+      borderColor: "rgba(115, 223, 78, 1)",
       pointRadius: 3,
-      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointBorderColor: "rgba(78, 115, 223, 1)",
+      pointBackgroundColor: "rgba(115, 223, 78, 1)",
+      pointBorderColor: "rgba(115, 223, 78, 1)",
       pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+      pointHoverBackgroundColor: "rgba(115, 223, 78, 1)",
+      pointHoverBorderColor: "rgba(115, 223, 78, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-    }],
+      data: data1,
+    },{
+        label: "Close",
+        lineTension: 0.3,
+        backgroundColor: "rgba(233, 73, 70, 0.05)",
+        borderColor: "rgba(233, 73, 70, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(233, 73, 70, 1)",
+        pointBorderColor: "rgba(233, 73, 70, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(233, 73, 70, 1)",
+        pointHoverBorderColor: "rgba(233, 73, 70, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: data2,
+      }
+    ],
   },
   options: {
     maintainAspectRatio: false,
@@ -91,7 +106,7 @@ var myLineChart = new Chart(ctx, {
       }],
     },
     legend: {
-      display: false
+      display: true
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
@@ -116,3 +131,4 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+}
