@@ -39,7 +39,7 @@ public class ShareController {
     private SQSClientService sqsClientService;
 
 
-    @GetMapping("/trade")
+    @GetMapping("/trade/sharedetails")
     public SharesVo getStocks(@RequestParam(value = "user") String user, @RequestParam(value = "name") String name) throws IOException {
         log.info("user and name from request {},{}", user, name);
         Stock shares = shareService.getShareDetails(name);
@@ -53,11 +53,11 @@ public class ShareController {
         ArrayList<String> dates = new ArrayList<>();
         SimpleDateFormat format1 = new SimpleDateFormat("dd-MMM-yy");
         for (HistoricalQuote histStock : shares.getHistory()) {
-            close.add(histStock.getClose().doubleValue());
-            open.add(histStock.getOpen().doubleValue());
-            high.add(histStock.getHigh().doubleValue());
-            low.add(histStock.getLow().doubleValue());
-            volume.add(histStock.getVolume().doubleValue());
+            close.add(histStock.getClose()==null?0:histStock.getClose().doubleValue());
+            open.add(histStock.getOpen()==null?0:histStock.getOpen().doubleValue());
+            high.add(histStock.getHigh()==null?0:histStock.getHigh().doubleValue());
+            low.add(histStock.getLow()==null?0:histStock.getLow().doubleValue());
+            volume.add(histStock.getVolume()==null?0:histStock.getVolume().doubleValue());
             Date date = histStock.getDate().getTime();
             dates.add(format1.format(date));
         }
