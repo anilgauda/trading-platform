@@ -10,18 +10,20 @@ import ie.ncirl.tradingplatform.dto.sqs.SQSDTO;
 import ie.ncirl.tradingplatform.dto.sqs.StockTransactionDTO;
 import ie.ncirl.tradingplatform.model.Account;
 import ie.ncirl.tradingplatform.model.Stock;
+import ie.ncirl.tradingplatform.model.StockTransaction;
 import ie.ncirl.tradingplatform.repo.AccountRepo;
 import ie.ncirl.tradingplatform.repo.StockRepo;
+import ie.ncirl.tradingplatform.repo.StockTransactionRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,6 +36,9 @@ public class SQSClientService {
 
     @Autowired
     private StockRepo stockRepo;
+
+    @Autowired
+    private StockTransactionRepo stockTransactionRepo;
 
     @Value("${aws.sqs.url}")
     private String queueUrl;
@@ -61,14 +66,19 @@ public class SQSClientService {
     @SqsListener("${aws.sqs.url}")
     public void listen(StockTransactionDTO transactionDTO) {
         Account account = accountRepo.getOne(transactionDTO.getAccountId());
-        Stock stock = Stock.builder()
-                .account(account)
+        Optional<Stock> stockOptional = stockRepo.findByAccountAndSymbol(account, transactionDTO.getSymbol());
+        Stock stock = stockOptional.orElse(Stock.builder().account(account).symbol(transactionDTO.getSymbol()).build());
+        if (!stockOptional.isPresent()) {
+            stock = stockRepo.save(stock);
+        }
+
+        StockTransaction stockTransaction = StockTransaction.builder()
+                .stock(stock)
                 .buyPrice(transactionDTO.getBuyPrice())
                 .sellPrice(transactionDTO.getSellPrice())
                 .quantity(transactionDTO.getQuantity())
-                .symbol(transactionDTO.getSymbol())
                 .build();
-        stockRepo.save(stock);
+        stockTransactionRepo.save(stockTransaction);
     }
 
 

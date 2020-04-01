@@ -6,26 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "stocks")
-public class Stock implements Serializable {
+@Table(name = "stock_transactions")
+public class StockTransaction implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
-    private String symbol;
+    private Double buyPrice;
 
-    @OneToOne
-    private Account account;
+    private Double sellPrice;
 
-    // Avg. buy price and sell price will be calculated from transactions
-    @OneToMany(mappedBy = "stock")
-    private List<StockTransaction> stockTransactions;
+    private Integer quantity;
+
+    @ManyToOne
+    private Stock stock;
 }

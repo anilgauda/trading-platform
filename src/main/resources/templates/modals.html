@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="buyStockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tradeStockTitle">Buy Stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="buySymbol" class="col-form-label">Symbol:</label>
+                    <input type="text" class="form-control" id="buySymbol" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="buyPrice" id="tradePriceLabel" class="col-form-label">Price:</label>
+                    <input type="number" class="form-control" id="buyPrice" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="buyQuantity" class="col-form-label">Buy quantity:</label>
+                    <input type="number" min="1"  class="form-control" id="buyQuantity">
+                </div>
+
+                <div class="form-group">
+                    <label for="buyTotalCost" class="col-form-label">Total Price:</label>
+                    <input type="number" class="form-control" id="buyTotalCost" disabled>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="spinner-border" role="status" id="buyStockLoader">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="buyStock" type="button" class="btn btn-primary">Buy stock</button>
+            </div>
+        </div>
+    </div>
+</div>

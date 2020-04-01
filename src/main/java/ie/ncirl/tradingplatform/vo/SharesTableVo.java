@@ -16,6 +16,6 @@ public class SharesTableVo {
 	Double eps;
 	Double pe;
 	Double bookVal;
-	
+	Integer buy = 0;
 
 }

@@ -10,9 +10,17 @@ public class NavigationController {
     public String showDash() {
         return "dash";
     }
-    
-    @GetMapping({"/trade"})
+
+    // All ui routes except dashboard are prefixed by app so that they can be configured as excluded in spring security
+
+    @GetMapping({"/app/trade"})
     public String showSharesDetail() {
         return "shares";
     }
+
+    @GetMapping({"/app/stocks"})
+    public String showMyStocks() {
+        return "mystocks";
+    }
+
 }

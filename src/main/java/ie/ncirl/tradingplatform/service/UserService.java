@@ -5,6 +5,7 @@ import ie.ncirl.tradingplatform.model.Account;
 import ie.ncirl.tradingplatform.model.User;
 import ie.ncirl.tradingplatform.repo.AccountRepo;
 import ie.ncirl.tradingplatform.repo.UserRepo;
+import ie.ncirl.tradingplatform.util.UserUtil;
 import ie.ncirl.tradingplatform.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,4 +51,9 @@ public class UserService {
 
         accountRepo.save(account);
     }
+
+    public Account getActiveAccount() {
+        return userRepo.findByUsername(UserUtil.getCurrentUser().getUsername()).get().getAccounts().get(0);
+    }
+
 }

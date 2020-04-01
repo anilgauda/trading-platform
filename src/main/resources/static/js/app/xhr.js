@@ -21,7 +21,7 @@ const XHR = {
         });
     },
 
-    get: (url, data, fn) => {
+    get: (url, data, fn, fnErr) => {
         const reqData = data || {};
         $.ajax
         ({
@@ -31,12 +31,13 @@ const XHR = {
             headers: {
                 "Authorization": 'Bearer ' + XHR.token
             },
-            data: data,
-            success: fn
+            data: reqData,
+            success: fn,
+            error: fnErr
         });
     },
 
-    post: (url, data, fn) => {
+    post: (url, data, fn, fnErr) => {
         const reqData = data || null;
         $.ajax
         ({
@@ -46,8 +47,9 @@ const XHR = {
             headers: {
                 "Authorization": 'Bearer ' + XHR.token
             },
-            data: data,
-            success: fn
+            data: reqData,
+            success: fn,
+            error: fnErr
         });
     }
 
