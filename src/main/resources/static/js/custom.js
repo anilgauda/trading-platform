@@ -32,9 +32,13 @@ function applyModalEvents() {
             "symbol": symbol,
             "price": price,
             "quantity": quantity
-        }, () => {
+        }, (data) => {
             $('#buyStockLoader').hide();
-            window.location = "/app/stocks";
+            if (data.hasError) {
+                alert(data.errorMessage);
+            } else {
+                window.location = "/app/stocks";
+            }
         });
     });
 
@@ -69,10 +73,10 @@ $(document).ready(function () {
             path = "/dashboard";
 
         $('.nav-item.active').removeClass('active');
-        $('#accordionSidebar .nav-link').each(function() {
+        $('#accordionSidebar .nav-link').each(function () {
             const el = $(this);
 
-            if(el.attr('href') === path) {
+            if (el.attr('href') === path) {
                 el.parent().addClass('active');
             }
         });
@@ -82,16 +86,15 @@ $(document).ready(function () {
     if ($('#dataTable').length > 0) {
         $('#dataTable').DataTable({
             "processing": true,
-            "serverSide": true,
-            "paging": false,
-            "ordering": false,
+            "paging": true,
+            "ordering": true,
             "info": true,
-            "searching": false,
+            "searching": true,
             "ajax": {
                 "url": "/trade/all",
                 "dataSrc": "",
                 "headers": {
-                    "Authorization" : "Bearer " + XHR.token
+                    "Authorization": "Bearer " + XHR.token
                 }
             },
             "columns": [
@@ -132,16 +135,15 @@ $(document).ready(function () {
     if ($('#myStocksTable').length > 0) {
         $('#myStocksTable').DataTable({
             "processing": true,
-            "serverSide": true,
-            "paging": false,
-            "ordering": false,
+            "paging": true,
+            "ordering": true,
             "info": true,
-            "searching": false,
+            "searching": true,
             "ajax": {
                 "url": "/trade/my",
                 "dataSrc": "",
                 "headers": {
-                    "Authorization" : "Bearer " + XHR.token
+                    "Authorization": "Bearer " + XHR.token
                 }
             },
             "columns": [
@@ -172,12 +174,41 @@ $(document).ready(function () {
                 }
             ]
         });
-
         applyModalEvents();
     }
 
+    if ($('#historyTable').length > 0) {
+        $('#historyTable').DataTable({
+            "processing": true,
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "ajax": {
+                "url": "/trade/history",
+                "dataSrc": "",
+                "headers": {
+                    "Authorization": "Bearer " + XHR.token
+                }
+            },
+            "columns": [
+                {"data": "name"},
+                {
+                    "data": "symbol", "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                            data = '<a href=# onclick="return showShareDetails(\'' + data + '\')">' + data + '<\/a>';
 
-
+                        }
+                        return data;
+                    }
+                },
+                {"data": "type"},
+                {"data": "price"},
+                {"data": "quantity"},
+                {"data": "tradedOn"}
+            ]
+        });
+    }
 
     if ($('#openCloseChart').length > 0) {
         console.log("shares html share data " + sessionStorage.getItem("share"));

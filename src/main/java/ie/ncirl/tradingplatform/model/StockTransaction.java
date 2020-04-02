@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +28,6 @@ public class StockTransaction implements Serializable {
 
     @ManyToOne
     private Stock stock;
+
+    private LocalDateTime created;
 }

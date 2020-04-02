@@ -15,6 +15,7 @@ import ie.ncirl.tradingplatform.util.UserUtil;
 import ie.ncirl.tradingplatform.vo.MyStockVo;
 import ie.ncirl.tradingplatform.vo.SharesTableVo;
 import ie.ncirl.tradingplatform.vo.SharesVo;
+import ie.ncirl.tradingplatform.vo.TransactionHistoryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,7 +91,12 @@ public class ShareController {
 
     @GetMapping("/trade/my")
     public List<MyStockVo> getMyStocks() throws IOException {
-        return  shareService.getSharesForAccount(userService.getActiveAccount());
+        return shareService.getSharesForAccount(userService.getActiveAccount());
+    }
+
+    @GetMapping("/trade/history")
+    public List<TransactionHistoryVo> getMyTransactions() throws IOException {
+        return shareService.getTransactionsForAccount(userService.getActiveAccount());
     }
 
 

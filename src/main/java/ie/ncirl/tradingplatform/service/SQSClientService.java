@@ -77,6 +77,7 @@ public class SQSClientService {
                 .buyPrice(transactionDTO.getBuyPrice())
                 .sellPrice(transactionDTO.getSellPrice())
                 .quantity(transactionDTO.getQuantity())
+                .created(LocalDateTime.now())
                 .build();
         stockTransactionRepo.save(stockTransaction);
     }

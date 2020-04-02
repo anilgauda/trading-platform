@@ -23,4 +23,9 @@ public class NavigationController {
         return "mystocks";
     }
 
+    @GetMapping({"/app/history"})
+    public String showHistory() {
+        return "history";
+    }
+
 }

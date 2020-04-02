@@ -1,0 +1,55 @@
+{% extends "base" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">My Share Transactions</h1>
+    </div>
+
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-lg-12 mb-4">
+
+            <!-- Approach -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">My Transactions</h6>
+                </div>
+                <div class="card-body">
+                    <!-- DataTales Example -->
+                    <div class="table">
+                        <table class="table table-bordered" id="historyTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>Price $</th>
+                                <th>Quantity</th>
+                                <th>Traded on</th>
+                            </tr>
+                            </thead>
+                            <tbody id="stockData">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% include "modals" %}
+
+<!-- /.container-fluid -->
+{% endblock %}

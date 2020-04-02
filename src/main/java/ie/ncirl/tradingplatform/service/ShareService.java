@@ -5,6 +5,7 @@ import ie.ncirl.tradingplatform.model.StockTransaction;
 import ie.ncirl.tradingplatform.repo.StockRepo;
 import ie.ncirl.tradingplatform.vo.MyStockVo;
 import ie.ncirl.tradingplatform.vo.SharesTableVo;
+import ie.ncirl.tradingplatform.vo.TransactionHistoryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -18,7 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -124,5 +127,47 @@ public class ShareService {
             }
             return null;
         }).collect(Collectors.toList());
+    }
+
+    public List<TransactionHistoryVo> getTransactionsForAccount(Account activeAccount) {
+        Map<String, String> symbolNameMap = new HashMap<>();
+        return stockRepo.findAllByAccount(activeAccount).stream()
+                .flatMap(stock -> stock.getStockTransactions().stream())
+                .map(stockTransaction -> {
+                            String symbol = stockTransaction.getStock().getSymbol();
+                            return TransactionHistoryVo.builder()
+                                    .name(getNameFromSymbol(symbol, symbolNameMap))
+                                    .symbol(symbol)
+                                    .type(stockTransaction.getBuyPrice() == null ? "SELL" : "BUY")
+                                    .price(stockTransaction.getBuyPrice() == null ?
+                                            stockTransaction.getSellPrice() : stockTransaction.getBuyPrice())
+                                    .quantity(stockTransaction.getQuantity())
+                                    .tradedOn(stockTransaction.getCreated())
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Gets name from Yahoo api and caches it in map so that it doesnt call external api every time
+     *
+     * @param symbol        stock company symbol
+     * @param symbolNameMap company symbol name map
+     * @return company name
+     */
+    private String getNameFromSymbol(String symbol, Map<String, String> symbolNameMap) {
+        String name = "";
+        if (symbolNameMap.containsKey(symbol)) {
+            name = symbolNameMap.get(symbol);
+        } else {
+            try {
+                name = YahooFinance.get(symbol, false).getName();
+            } catch (IOException e) {
+                log.error("Unable to get symbol data from Yahoo finance API");
+            }
+            symbolNameMap.put(symbol, name);
+        }
+        return name;
     }
 }
