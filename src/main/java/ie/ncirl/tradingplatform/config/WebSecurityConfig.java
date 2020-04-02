@@ -51,12 +51,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-// We don't need CSRF for this example
         httpSecurity.csrf().disable()
 // dont authenticate this particular request
-                .authorizeRequests().antMatchers("/", "/favicon.ico", "/user/authenticate", "/user/register", "/dashboard", "/app/**").permitAll().
+                .authorizeRequests().antMatchers( "/user/authenticate", "/user/register", "/app/**", "/").permitAll().
+
 // all other requests need to be authenticated
-        anyRequest().authenticated().and().
+        anyRequest().authenticated().and()
+                .formLogin()
+                .loginPage("/app/login").and().
+
 // make sure we use stateless session; session won't be used to
 // store user's state.
         exceptionHandling()/*.authenticationEntryPoint(jwtAuthenticationEntryPoint)*/.and().sessionManagement()
@@ -69,6 +72,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/vendor/**", "/js/**", "/css/**"); // #3
+                .antMatchers("/vendor/**", "/js/**", "/css/**", "/img/**", "/favicon.ico"); // #3
     }
 }

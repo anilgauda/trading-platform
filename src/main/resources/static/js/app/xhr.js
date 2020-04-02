@@ -1,23 +1,33 @@
 const XHR = {
     token: null,
 
-    createUser: (username, password) => {
-        $.ajax("user/register", {
-            data: JSON.stringify({username: username, password: password}),
+    createUser: (username, password, name, fn) => {
+        let displayName = name || "";
+        let func = fn || function () {
+        };
+        $.ajax("/user/register", {
+            data: JSON.stringify({username: username, password: password, displayName: displayName}),
             contentType: 'application/json',
-            type: 'POST'
+            type: 'POST',
+            success: func
         });
     },
 
-    authenticate: (username, password) => {
-        $.ajax("user/authenticate", {
+    authenticate: (username, password, fn, fnErr) => {
+        $.ajax("/user/authenticate", {
             data: JSON.stringify({username: username, password: password}),
             contentType: 'application/json',
             type: 'POST',
-            success: (data) => {
-                XHR.token = data.jwttoken;
-                sessionStorage.setItem("token", XHR.token);
-            }
+            success: (response) => {
+                if (!response.hasError) {
+                    XHR.token = response.data.jwttoken;
+                    sessionStorage.setItem("token", XHR.token);
+                }
+                let func = fn || function () {
+                };
+                func(response);
+            },
+            error: fnErr
         });
     },
 

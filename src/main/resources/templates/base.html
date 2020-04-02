@@ -42,7 +42,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="/dashboard">
+            <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -113,25 +113,13 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            <span id="displayName"
+                                  class="mr-2 d-none d-lg-inline text-gray-600 small">Display name</span>
+                            <img id="pic" class="img-profile rounded-circle" src="https://api.adorable.io/avatars/60/abott@adorable.png">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
@@ -183,14 +171,29 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <button class="btn btn-primary" id="logout">Logout</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/js/app/xhr.js"></script>
+
+<script type="text/javascript">
+    if (XHR.token == null) {
+        window.location = "/app/login";
+    }
+
+    XHR.get("/user/profile", {}, function (user) {
+        $('#displayName').text(user.displayName);
+        $('#pic').attr('src', `https://api.adorable.io/avatars/60/${user.username}`);
+    }, function () {
+        window.location = "/app/login";
+    });
+</script>
+
+<!-- Bootstrap core JavaScript-->
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
@@ -198,7 +201,6 @@
 
 <!-- Custom scripts for all pages-->
 <script src="/js/sb-admin-2.min.js"></script>
-<script src="/js/app/xhr.js"></script>
 
 
 <script src="/vendor/chart.js/Chart.min.js"></script>
@@ -207,12 +209,12 @@
 <script src="/js/demo/chart-bar-demo.js"></script>
 <!--<script src="js/demo/chart-pie-demo.js"></script>-->
 <!-- Page level plugins -->
-  <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <!-- Page level custom scripts
-  <script src="js/demo/datatables-demo.js"></script> -->
-  <script src="/js/custom.js"></script>
+<!-- Page level custom scripts
+<script src="js/demo/datatables-demo.js"></script> -->
+<script src="/js/custom.js"></script>
 
 </body>
 </html>

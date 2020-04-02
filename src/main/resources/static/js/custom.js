@@ -65,12 +65,11 @@ function applyModalEvents() {
     })
 }
 
+
 $(document).ready(function () {
 
     (function makeLinkActive() {
         let path = window.location.pathname;
-        if (window.location.pathname === "/")
-            path = "/dashboard";
 
         $('.nav-item.active').removeClass('active');
         $('#accordionSidebar .nav-link').each(function () {
@@ -81,6 +80,11 @@ $(document).ready(function () {
             }
         });
     })();
+
+    $('#logout').on('click', function () {
+        sessionStorage.setItem('token', null);
+        window.location = "/app/login";
+    });
 
 
     if ($('#dataTable').length > 0) {

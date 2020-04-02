@@ -5,13 +5,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class NavigationController {
-	 
-    @GetMapping({"/dashboard", "/"})
+
+    @GetMapping("/")
     public String showDash() {
         return "dash";
     }
 
     // All ui routes except dashboard are prefixed by app so that they can be configured as excluded in spring security
+
+    @GetMapping({"/app/login"})
+    public String showLogin() {
+        return "login";
+    }
+
+    @GetMapping({"/app/register"})
+    public String showRegister() {
+        return "register";
+    }
 
     @GetMapping({"/app/trade"})
     public String showSharesDetail() {

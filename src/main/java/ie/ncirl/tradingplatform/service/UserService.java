@@ -34,7 +34,7 @@ public class UserService {
     public void createUser(UserRegisterRequest userRegisterRequest) {
         User user = User.builder()
                 .username(userRegisterRequest.getUsername())
-                .displayName(userRegisterRequest.getUsername())
+                .displayName("".equals(userRegisterRequest.getDisplayName()) ? userRegisterRequest.getUsername() : userRegisterRequest.getDisplayName())
                 .password(passwordEncoder.encode(userRegisterRequest.getPassword())).build();
 
         userRepo.save(user);
