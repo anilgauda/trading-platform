@@ -33,9 +33,7 @@ import java.util.Optional;
 @Service
 public class SQSClientService {
 
-    private AmazonSQS sqs = AmazonSQSClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(
-			new BasicAWSCredentials("AKIAIH5MDSEYIJQZY6IQ", "g8QeO0UnnQcWSksWWNSZI3ygEuYLalVjM1f3H6IM"))).
-			withRegion("us-east-1").build();
+    private AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
     @Autowired
     private AccountRepo accountRepo;
