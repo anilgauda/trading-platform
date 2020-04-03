@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TradingplatformApplication {
 
 	public static void main(String[] args) {
-		System.setProperty(SDKGlobalConfiguration.AWS_EC2_METADATA_DISABLED_SYSTEM_PROPERTY, "true");
 		SpringApplication.run(TradingplatformApplication.class, args);
 	}
 
