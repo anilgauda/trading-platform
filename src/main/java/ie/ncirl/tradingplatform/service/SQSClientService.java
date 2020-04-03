@@ -1,5 +1,9 @@
 package ie.ncirl.tradingplatform.service;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.MessageAttributeValue;
@@ -29,7 +33,9 @@ import java.util.Optional;
 @Service
 public class SQSClientService {
 
-    private AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+    private AmazonSQS sqs = AmazonSQSClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(
+			new BasicAWSCredentials("AKIAIH5MDSEYIJQZY6IQ", "g8QeO0UnnQcWSksWWNSZI3ygEuYLalVjM1f3H6IM"))).
+			withRegion("us-east-1").build();
 
     @Autowired
     private AccountRepo accountRepo;
