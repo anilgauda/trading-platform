@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div class="modal fade" id="goalsCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tradeStockTitle">Create Goals</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="buySymbol" class="col-form-label">Name: </label>
+                    <input type="text" class="form-control" id="nameGoal">
+                </div>
+                <div class="form-group">
+                    <label for="buyPrice" id="tradePriceLabel" class="col-form-label">Start Date: </label>
+                    <input  placeholder="DD/MM/YYY" class="form-control" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="buyQuantity" class="col-form-label">End Date: </label>
+                    <input  placeholder="DD/MM/YYYY"  class="form-control" id="endDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="buyTotalCost" class="col-form-label">Target Amount ($): </label>
+                    <input type="number" class="form-control" id="targetAmount" >
+                </div>
+                <div class="form-group">
+                    <label for="buyTotalCost" class="col-form-label">Percentage of Amount to Assign: </label>
+                    <input type="number" class="form-control" id="percent" >
+                </div>
+
+            </div>
+            <div class="modal-footer">
+             <div class="spinner-border" role="status" id="goalsLoader">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="createGoal" type="button" class="btn btn-primary">Create Goal</button>
+            </div>
+        </div>
+    </div>
+</div>

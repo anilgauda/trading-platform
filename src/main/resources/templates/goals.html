@@ -1,0 +1,38 @@
+{% extends "base" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+  <!-- Begin Page Content -->
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800" id="goal">Goals</h1>
+    </div>
+	                  <a href="#" class="btn btn-success btn-icon-split " data-trade='goals' data-toggle='modal' data-target='#goalsCreateModal'>
+                    <span class="icon text-white-50">
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    <span class="text">Create Goal</span>
+                  </a>
+                  
+                  
+ 	<div class="row">
+
+            <div class="col-lg-6" id="goalCol1">
+
+        
+
+              </div>
+              <div class="col-lg-6" id="goalCol2">
+
+       
+
+              </div>
+              </div>
+
+  </div>
+  {% include "goalsmodal" %}
+  <!-- /.container-fluid -->
+{% endblock %}
