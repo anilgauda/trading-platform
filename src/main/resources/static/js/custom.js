@@ -66,15 +66,15 @@ function applyModalEvents() {
 }
 
 function getGoalsData() {
-	 $('#goalsLoader').hide()
+    $('#goalsLoader').hide()
     $('#createGoal').on('click', () => {
-    	$('#goalsLoader').show();
-    	var goalName= $("#nameGoal").get(0).value
-    	var startDate= $("#startDate").get(0).value
-    	var endDate= $("#endDate").get(0).value
-    	var targetAmount= $("#targetAmount").get(0).value
-    	var perAmount=$("#percent").get(0).value
-    	
+        $('#goalsLoader').show();
+        var goalName = $("#nameGoal").get(0).value
+        var startDate = $("#startDate").get(0).value
+        var endDate = $("#endDate").get(0).value
+        var targetAmount = $("#targetAmount").get(0).value
+        var perAmount = $("#percent").get(0).value
+
         XHR.post(`/app/goal`, {
             "name": goalName,
             "startDate": startDate,
@@ -86,76 +86,79 @@ function getGoalsData() {
         });
     });
 }
-function showGoals(){
+
+function showGoals() {
     XHR.get(`/app/goal`, {}, function (data) {
         console.log(data)
-        var counter=true;
-        $.each(data,function(k,v){
-        	console.log(v)
-        	if (counter){
-        	$("#goalCol1").append(
-        			'<div class="card mb-4">'+
-                    '<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">'+
-                      '<h6 class="m-0 font-weight-bold text-primary">'+ v.name+'</h6>'+
-                      '<div class="dropdown no-arrow">'+
-                      '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-                        '<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'+
-                      '</a>'+
-                      '<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">'+
-                        '<div class="dropdown-header">Action:</div>'+
-                        '<a class="dropdown-item" href="#" onclick=deleteGoal('+v.id+')>Delete</a>'+
-                      '</div>'+
-                    '</div>'+
-                    '</div>'+
-                    '<div class="card-body">'+
-                      '<div class="chart-area">'+
-                        '<canvas id="goal'+k+'"></canvas>'+
-                      '</div>'+
-                    '</div>'+
-                  '</div>'+
-                  '<div class="progress">'+
-        			  '<div class="progress-bar" role="progressbar" style="width: '+v.percent+'%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+v.percent+'%</div>'+
-        			'</div>'
-        	)
-        	counter=false;
-        	}else{
-        	   	$("#goalCol2").append(
-            			'<div class="card mb-4">'+
-                        '<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">'+
-                          '<h6 class="m-0 font-weight-bold text-primary">'+ v.name+'</h6>'+
-                          '<div class="dropdown no-arrow">'+
-                          '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-                            '<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>'+
-                          '</a>'+
-                          '<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">'+
-                          '<div class="dropdown-header">Action:</div>'+
-                          '<a class="dropdown-item" href="#" onclick=deleteGoal('+v.id+')>Delete</a>'+
-                          '</div>'+
-                        '</div>'+
-                        '</div>'+
-                        '<div class="card-body">'+
-                          '<div class="chart-area">'+
-                            '<canvas id="goal'+k+'"></canvas>'+
-                          '</div>'+
-                        '</div>'+
-                      '</div>'+
-                      '<div class="progress">'+
-            			  '<div class="progress-bar" role="progressbar" style="width: '+v.percent+'%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+v.percent+'%</div>'+
-            			'</div>'
-            	)
-        	counter=true;
-        	}
-        	createPieChart("goal"+k,v.amounts);
+        var counter = true;
+        $.each(data, function (k, v) {
+            console.log(v)
+            if (counter) {
+                $("#goalCol1").append(
+                    '<div class="card mb-4">' +
+                    '<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">' +
+                    '<h6 class="m-0 font-weight-bold text-primary">' + v.name + '</h6>' +
+                    '<div class="dropdown no-arrow">' +
+                    '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                    '<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>' +
+                    '</a>' +
+                    '<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">' +
+                    '<div class="dropdown-header">Action:</div>' +
+                    '<a class="dropdown-item" href="#" onclick=deleteGoal(' + v.id + ')>Delete</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                    '<div class="chart-area">' +
+                    '<canvas id="goal' + k + '"></canvas>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="progress">' +
+                    '<div class="progress-bar" role="progressbar" style="width: ' + v.percent + '%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' + v.percent + '%</div>' +
+                    '</div>'
+                )
+                counter = false;
+            } else {
+                $("#goalCol2").append(
+                    '<div class="card mb-4">' +
+                    '<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">' +
+                    '<h6 class="m-0 font-weight-bold text-primary">' + v.name + '</h6>' +
+                    '<div class="dropdown no-arrow">' +
+                    '<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                    '<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>' +
+                    '</a>' +
+                    '<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">' +
+                    '<div class="dropdown-header">Action:</div>' +
+                    '<a class="dropdown-item" href="#" onclick=deleteGoal(' + v.id + ')>Delete</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                    '<div class="chart-area">' +
+                    '<canvas id="goal' + k + '"></canvas>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="progress">' +
+                    '<div class="progress-bar" role="progressbar" style="width: ' + v.percent + '%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">' + v.percent + '%</div>' +
+                    '</div>'
+                )
+                counter = true;
+            }
+            createPieChart("goal" + k, v.amounts);
         });
     });
 }
-function deleteGoal(goalId){
-	  XHR.post(`/app/goal/`, {
-		  "goalId":goalId
-	  }, function(data){
-		  window.location = "/app/goals";
-	  });
+
+function deleteGoal(goalId) {
+    XHR.post(`/app/goal/`, {
+        "goalId": goalId
+    }, function (data) {
+        window.location = "/app/goals";
+    });
 }
+
 $(document).ready(function () {
 
     (function makeLinkActive() {
@@ -314,10 +317,38 @@ $(document).ready(function () {
             $("#shareName").html(data.name)
         })
     }
-    if($('#goal').length > 0){
-    	console.log("Inside goals")
-    	showGoals();
-    	getGoalsData();
-    	
+    if ($('#goal').length > 0) {
+        showGoals();
+        getGoalsData();
+    }
+
+    if ($('#accountDetails').length > 0) {
+        XHR.get(`/user/account/details`,{}, function (response) {
+            if (!response.hasError) {
+                const data = response.data;
+                $('#accBalance').html(`\$${data.balance}`);
+                $('#totalEarnings').html(`\$${data.totalEarnings}`);
+                $('#totalStocks').html(`${data.numStocks}`);
+            }
+        });
+
+
+        $('#addBalance').on('click', function () {
+            const balance = $('#amount').val();
+            const $error = $('#error');
+
+            if (balance <= 0) {
+                $error.html('Minimum amount should be greater than 0').show();
+                return false;
+            }
+
+            $error.hide();
+
+            XHR.post(`/user/account/balance/add?amount=${balance}`,{}, function () {
+                window.location.reload();
+            });
+
+            return false;
+        });
     }
 });

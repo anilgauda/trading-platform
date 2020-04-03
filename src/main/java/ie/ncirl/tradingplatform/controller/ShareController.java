@@ -102,8 +102,13 @@ public class ShareController {
 
     @PostMapping("/trade/share/buy")
     public ResponseDTO<String> buyStock(TradeShareRequest tradeShareRequest) {
-        sqsClientService.send(createStockTransactionDTO(tradeShareRequest, true));
-        return new ResponseDTO<String>().withData("OK");
+        Account account = userService.getActiveAccount();
+        if (account.getBalance() >= (tradeShareRequest.getPrice() * tradeShareRequest.getQuantity())) {
+            sqsClientService.send(createStockTransactionDTO(tradeShareRequest, true));
+            return new ResponseDTO<String>().withData("OK");
+        } else {
+            return new ResponseDTO<String>().withError("Not enough balance to buy shares. Please top up in My account");
+        }
     }
 
     @PostMapping("/trade/share/sell")

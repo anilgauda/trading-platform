@@ -42,4 +42,10 @@ public class NavigationController {
     public String showGoals() {
         return "goals";
     }
+
+    @GetMapping({"/app/account"})
+    public String showAccount() {
+        return "account";
+    }
+
 }

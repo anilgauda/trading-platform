@@ -52,7 +52,7 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Interface
+            Finance
         </div>
 
         <!-- Nav Item - Charts -->
@@ -81,6 +81,16 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Personal
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/app/account">
+                <i class="fas fa-user"></i>
+                <span>My Account</span></a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -115,7 +125,8 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span id="displayName"
                                   class="mr-2 d-none d-lg-inline text-gray-600 small">Display name</span>
-                            <img id="pic" class="img-profile rounded-circle" src="https://api.adorable.io/avatars/60/abott@adorable.png">
+                            <img id="pic" class="img-profile rounded-circle"
+                                 src="https://api.adorable.io/avatars/60/abott@adorable.png">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -188,6 +199,13 @@
     XHR.get("/user/profile", {}, function (user) {
         $('#displayName').text(user.displayName);
         $('#pic').attr('src', `https://api.adorable.io/avatars/60/${user.username}`);
+
+        if (localStorage.getItem(`offerViewed${user.username}`) == null) {
+            $('.toast').toast('show');
+            localStorage.setItem(`offerViewed${user.username}`, 'showed');
+        }
+
+
     }, function () {
         window.location = "/app/login";
     });

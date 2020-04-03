@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +69,7 @@ public class SQSClientService {
     }
 
     @SqsListener("${aws.sqs.url}")
+    @Transactional
     public void listen(StockTransactionDTO transactionDTO) {
         Account account = accountRepo.getOne(transactionDTO.getAccountId());
         Optional<Stock> stockOptional = stockRepo.findByAccountAndSymbol(account, transactionDTO.getSymbol());
@@ -84,6 +86,10 @@ public class SQSClientService {
                 .created(LocalDateTime.now())
                 .build();
         stockTransactionRepo.save(stockTransaction);
+
+        account.setBalance(account.getBalance() + (transactionDTO.getBuyPrice() != null
+                ? -transactionDTO.getBuyPrice() : transactionDTO.getSellPrice()));
+        accountRepo.save(account);
     }
 
 

@@ -1,6 +1,7 @@
 package ie.ncirl.tradingplatform.controller;
 
 import ie.ncirl.tradingplatform.dto.*;
+import ie.ncirl.tradingplatform.model.Account;
 import ie.ncirl.tradingplatform.model.User;
 import ie.ncirl.tradingplatform.service.JwtUserDetailsService;
 import ie.ncirl.tradingplatform.service.UserService;
@@ -11,10 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -72,5 +70,20 @@ public class UserController {
         }
         return true;
     }
+
+
+    @PostMapping("/user/account/balance/add")
+    public ResponseDTO<String> topupAccount(@RequestParam("amount") Double amount) {
+        Account account = userService.getActiveAccount();
+        userService.addBalance(account, amount);
+        return new ResponseDTO<String>().withData("OK");
+    }
+
+    @GetMapping("/user/account/details")
+    public ResponseDTO<AccountDetailsDTO> getAccountDetails() {
+        Account account = userService.getActiveAccount();
+        return new ResponseDTO<AccountDetailsDTO>().withData(userService.getAccountDetails(account));
+    }
+
 }
 

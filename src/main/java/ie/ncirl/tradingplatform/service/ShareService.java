@@ -18,10 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -118,15 +115,15 @@ public class ShareService {
                         .symbol(yahooStock.getSymbol())
                         .currPrice(yahooStock.getQuote().getPrice().doubleValue())
                         .open(yahooStock.getQuote().getOpen().doubleValue())
-                        .myAvgBuyPrice(avgBuyPrice)
-                        .myAvgSellPrice(avgSellPrice)
+                        .myAvgBuyPrice(Math.round(avgBuyPrice * 100.0) / 100.0)
+                        .myAvgSellPrice(Math.round(avgSellPrice * 100.0) / 100.0)
                         .quantity(quantity)
                         .build();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
-        }).collect(Collectors.toList());
+        }).filter(Objects::nonNull).filter(myStockVo -> myStockVo.getQuantity() > 0).collect(Collectors.toList());
     }
 
     public List<TransactionHistoryVo> getTransactionsForAccount(Account activeAccount) {
