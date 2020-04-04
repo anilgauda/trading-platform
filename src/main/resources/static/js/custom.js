@@ -68,13 +68,13 @@ function applyModalEvents() {
 function getGoalsData() {
     $('#goalsLoader').hide()
     $('#createGoal').on('click', () => {
-        $('#goalsLoader').show();
         var goalName = $("#nameGoal").get(0).value
         var startDate = $("#startDate").get(0).value
         var endDate = $("#endDate").get(0).value
         var targetAmount = $("#targetAmount").get(0).value
         var perAmount = $("#percent").get(0).value
-
+        if(validateDate(startDate) && validateDate(endDate)){
+        	 $('#goalsLoader').show();
         XHR.post(`/app/goal`, {
             "name": goalName,
             "startDate": startDate,
@@ -84,10 +84,23 @@ function getGoalsData() {
         }, () => {
             window.location = "/app/goals";
         });
+    }
     });
 }
+function validateDate(date){
+	 // regular expression to match required date format
+	var pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
 
+	    if(!pattern.test(date)) {
+	      $("#errorMessage").show();
+	      
+	      return false;
+	    }
+	    $("#errorMessage").hide();
+		return true;
+	}
 function showGoals() {
+	$("#errorMessage").hide();
     XHR.get(`/app/goal`, {}, function (data) {
         console.log(data)
         var counter = true;
