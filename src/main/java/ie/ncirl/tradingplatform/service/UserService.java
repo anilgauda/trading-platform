@@ -71,7 +71,7 @@ public class UserService {
 
     public AccountDetailsDTO getAccountDetails(Account account) {
         List<Stock> stocks = stockRepo.findAllByAccount(account);
-        Double earnings = stocks.stream().flatMap(stock -> stock.getStockTransactions().stream())
+        double earnings = stocks.stream().flatMap(stock -> stock.getStockTransactions().stream())
                 .mapToDouble(stockTransaction -> stockTransaction.getSellPrice() == null ? 0 : stockTransaction.getSellPrice())
                 .sum();
 

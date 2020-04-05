@@ -3,6 +3,29 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+<style type="text/css">
+    @media (max-width: 1386px) {
+        .notebook-hide {
+            display: none;
+        }
+
+        #stockData tr td:nth-child(10) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 1300px) {
+        .notebook-small-hide {
+            display: none;
+        }
+
+        #stockData tr td:nth-child(9) {
+            display: none;
+        }
+    }
+
+</style>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -35,8 +58,8 @@
                                 <th>Previous Day Close $</th>
                                 <th>Volume</th>
                                 <th>Earning Per Share (EPS)</th>
-                                <th>Price to Earning Ratio (PE)</th>
-                                <th>Book Value $</th>
+                                <th class="notebook-small-hide">Price to Earning Ratio (PE)</th>
+                                <th class="notebook-hide">Book Value $</th>
                                 <th>Buy Stock</th>
                             </tr>
                             </thead>
