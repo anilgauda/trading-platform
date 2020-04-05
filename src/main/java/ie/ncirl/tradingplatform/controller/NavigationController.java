@@ -37,7 +37,7 @@ public class NavigationController {
     public String showHistory() {
         return "history";
     }
-    
+
     @GetMapping({"/app/goals"})
     public String showGoals() {
         return "goals";
@@ -48,4 +48,9 @@ public class NavigationController {
         return "account";
     }
 
+
+    @GetMapping({"/app/reports"})
+    public String showReports() {
+        return "reports";
+    }
 }

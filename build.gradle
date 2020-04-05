@@ -43,6 +43,14 @@ dependencies {
 		// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
 	compile "com.amazonaws:aws-java-sdk-sqs:1.11.727"
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+   compile group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.19'
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+
 }
 
 test {

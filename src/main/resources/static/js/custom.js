@@ -13,6 +13,17 @@ function changeBuySellText(type) {
     }
 }
 
+function downloadReport(element) {
+    const $table = $(element).parent().parent();
+    const $anchor = $('#reportAnchor');
+    const reportName = $table.find("td:first").text();
+    $anchor.attr({
+        href: '/app/trade/report/download?fileName=' + reportName,
+        download: reportName,
+    });
+    $anchor.get(0).click()
+}
+
 function applyModalEvents() {
     $('#buyQuantity').on('change', () => {
         const price = parseFloat(currTable.find('td:eq(3)').text());
@@ -93,7 +104,7 @@ function validateDate(date){
 
 	    if(!pattern.test(date)) {
 	      $("#errorMessage").show();
-	      
+
 	      return false;
 	    }
 	    $("#errorMessage").hide();
@@ -192,6 +203,13 @@ $(document).ready(function () {
         window.location = "/app/login";
     });
 
+    $('#createReport').on('click', function () {
+
+        XHR.get(`/app/trade/report`, {}, function() {
+            window.location.reload();
+        });
+
+    });
 
     if ($('#dataTable').length > 0) {
         $('#dataTable').DataTable({
@@ -333,6 +351,38 @@ $(document).ready(function () {
     if ($('#goal').length > 0) {
         showGoals();
         getGoalsData();
+    }
+
+    if ($('#myReportTable').length > 0) {
+
+        $('#myReportTable').DataTable({
+            "processing": true,
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "ajax": {
+                "url": "/app/getReports",
+                "dataSrc": "",
+                "headers": {
+                    "Authorization": "Bearer " + XHR.token
+                }
+            },
+            "columns": [
+                {"data": "name"},
+                {"data": "date"},
+                {
+                    "data": "link", "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+                           // data = '<a href=# onclick="return showShareDetails(\'' + data + '\')">' + data + '<\/a>';
+                            data = '<button onclick="downloadReport(this)" class=\'downloadReport btn btn-primary\' data-toggle=\'modal\' data-trade=\'sell\' data-target=\'#downloadReport\'>Download Report</button>'
+                        }
+                        return data;
+                    }
+                }
+            ],
+            "order": [[ 1, "desc" ]]
+        });
     }
 
     if ($('#accountDetails').length > 0) {

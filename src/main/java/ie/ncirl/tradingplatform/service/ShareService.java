@@ -153,7 +153,7 @@ public class ShareService {
      * @param symbolNameMap company symbol name map
      * @return company name
      */
-    private String getNameFromSymbol(String symbol, Map<String, String> symbolNameMap) {
+    public String getNameFromSymbol(String symbol, Map<String, String> symbolNameMap) {
         String name = "";
         if (symbolNameMap.containsKey(symbol)) {
             name = symbolNameMap.get(symbol);

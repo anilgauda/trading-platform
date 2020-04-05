@@ -47,6 +47,22 @@ const XHR = {
         });
     },
 
+    getRaw: (url, data, fn, fnErr) => {
+        const reqData = data || {};
+        $.ajax
+        ({
+            type: "GET",
+            url: url,
+            dataType: "text",
+            headers: {
+                "Authorization": 'Bearer ' + XHR.token
+            },
+            data: reqData,
+            success: fn,
+            error: fnErr
+        });
+    },
+
     post: (url, data, fn, fnErr) => {
         const reqData = data || null;
         $.ajax
