@@ -44,6 +44,9 @@ public class S3ClientService {
 
     @Autowired
     private ShareService shareService;
+    
+    @Autowired
+    private UserService userService;
 
     public String uploadFileTos3bucket(String fileName, File file) {
         try {
@@ -57,8 +60,9 @@ public class S3ClientService {
     public List<S3ReportDetailsVo> getAllReports() throws IOException {
         List<S3ReportDetailsVo> reportList = new ArrayList<>();
         ObjectListing objectListing = s3client.listObjects(bucketName);
+        Account account = userService.getActiveAccount();
         for (S3ObjectSummary os : objectListing.getObjectSummaries()) {
-            if (os.getKey().toLowerCase().startsWith(UserUtil.getCurrentUser().getUsername().toLowerCase())) {
+            if (os.getKey().toLowerCase().startsWith(account.getUser().getDisplayName().toLowerCase())) {
                 S3ReportDetailsVo S3ReportDetailsVo = new S3ReportDetailsVo(os.getKey(), os.getLastModified(), os.getKey());
                 reportList.add(S3ReportDetailsVo);
             }
