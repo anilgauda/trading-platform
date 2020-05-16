@@ -5,11 +5,11 @@ A cloud based trading platform for buying/selling stocks with advanced reporting
 
 ## Technical Specification
 
-Cloud Platform: AWS.
-Cloud Services: Simple Queuing Service (SQS), Simple Storage Service (S3), Elastic Beanstalk.
-Backend/Service Layer Technologies : Java, Spring, Hibernate.
-UI/Front-end: HTML, Jquery, Bootstrap.
-Database: Postres.
+Cloud Platform: AWS. <br/>
+Cloud Services: Simple Queuing Service (SQS), Simple Storage Service (S3), Elastic Beanstalk.<br/>
+Backend/Service Layer Technologies : Java, Spring, Hibernate.<br/>
+UI/Front-end: HTML, Jquery, Bootstrap.<br/>
+Database: Postres.<br/>
 
 ## Application Architecture
 ![](Project_Docs/CAS-Arch-Dig.png)
