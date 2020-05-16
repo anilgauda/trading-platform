@@ -9,7 +9,7 @@ Cloud Platform: AWS. <br/>
 Cloud Services: Simple Queuing Service (SQS), Simple Storage Service (S3), Elastic Beanstalk.<br/>
 Backend/Service Layer Technologies : Java, Spring, Hibernate.<br/>
 UI/Front-end: HTML, Jquery, Bootstrap.<br/>
-Database: Postres.<br/>
+Database: Postgres.<br/>
 
 ## Application Architecture
 ![](Project_Docs/CAS-Arch-Dig.png)
