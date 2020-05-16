@@ -1,7 +1,18 @@
 Trading Platform
 ==
 
-A platform for buying/selling stocks with advanced reporting and goal management.
+A cloud based trading platform for buying/selling stocks with advanced reporting and goal management. Backend/Service Layer is Restful Webservices are crated for each feature and it is hosted on cloud environment. UI Layer is responsible for consuming webservices to create UI components such as Graphs and Reports.
+
+## Technical Specification
+
+Cloud Platform: AWS.
+Cloud Services: Simple Queuing Service (SQS), Simple Storage Service (S3), Elastic Beanstalk.
+Backend/Service Layer Technologies : Java, Spring, Hibernate.
+UI/Front-end: HTML, Jquery, Bootstrap.
+Database: Postres.
+
+## Application Architecture
+![](Project_Docs/CAS-Arch-Dig.png)
 
 ## Database
 
@@ -11,8 +22,8 @@ when creating an entity in model package
 like this:  
 `@Table(name = "users")`
 
-This is because many of the words like "user" are keywords in Postgres database.  
-
+This is because many of the words like "user" are keywords in Postgres database. 
+![](Project_Docs/ER-Diagram-CAS.png)
 
 ## Authentication
 
@@ -53,6 +64,5 @@ and any other frequently changed things.
 
 So, if you want to add a new page, just copy `dash.html` in src/main/resources/templates
 
-## Application Architecture
-![](Project_Docs/CAS-Arch-Dig.png)
+
 
