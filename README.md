@@ -52,3 +52,7 @@ the skeleton base template because we do not want unnecessary code duplication o
 and any other frequently changed things.
 
 So, if you want to add a new page, just copy `dash.html` in src/main/resources/templates
+
+## Application Architecture
+![](Project_Docs/CAS-Arch-Dig.png)
+
